@@ -50,10 +50,10 @@ namespace Predator_prey_Algorithm
             return Generate(x * scale, y * scale, z * scale) * 128 + 128;
         }
 
-        static Noise()
+        static Simplex()
         {
             perm = new byte[permOriginal.Length];
-            Simplex.Noise.permOriginal.CopyTo(perm, 0);
+            Predator_prey_Algorithm.Simplex.permOriginal.CopyTo(perm, 0);
         }
 
         public static int Seed
@@ -64,7 +64,7 @@ namespace Predator_prey_Algorithm
                 if (value == 0)
                 {
                     perm = new byte[permOriginal.Length];
-                    Simplex.Noise.permOriginal.CopyTo(perm, 0);
+                    Predator_prey_Algorithm.Simplex.permOriginal.CopyTo(perm, 0);
                 }
                 else
                 {

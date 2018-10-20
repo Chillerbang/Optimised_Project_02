@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,12 +16,16 @@ namespace Predator_prey_Algorithm
     {
         private int width;
         private int height;
+        private int gridSize = 1;
+        private int seed = 10;
         Random rnd;
+        private Bitmap savedImg = null;
 
         public Form1()
         {
             InitializeComponent();
             rnd = new Random();
+            
             width = panel1.Width;
             height = panel1.Height;
         }
@@ -28,30 +33,70 @@ namespace Predator_prey_Algorithm
         private void btnStart_Click(object sender, EventArgs e)
         {
             //Generate Graphic
-            GenerateGraphic();
+            gridSize = (int)nudSize.Value;
+            seed = (int)nudSeed.Value;
+            CreateBitmapAtRuntime();
         }
 
-        private void GenerateGraphic()
+        private int GetInt(TextBox textBox)
         {
-            PerlinNoise perlinNoise = new PerlinNoise(1);
-            Bitmap bitmap = new Bitmap(panel1.Width, panel1.Height);
-            double widthDivisor = 1 / (double)panel1.Width;
-            double heightDivisor = 1 / (double)panel1.Height;
-            Point point = new Point();
-            for (int i = 0; i < width; i++)
+            int i = 0;
+            return int.TryParse(textBox.Text, out i) ? i : 0;
+        }
+
+        public void CreateBitmapAtRuntime()
+        {
+            Bitmap flag = new Bitmap(width, height, PixelFormat.Format32bppRgb);
+            Rectangle flagRect = new Rectangle(0, 0, width, height);
+            Graphics flagGraphics = Graphics.FromImage(flag);
+
+            System.Drawing.Imaging.BitmapData flagData = flag.LockBits(flagRect, ImageLockMode.ReadWrite, flag.PixelFormat);
+            int imageByteSize = flagData.Stride * flagData.Height;
+            byte[] destinationData = new byte[imageByteSize];
+            int bitsPerPixelElement = 32 / 8;
+            
+            Simplex.Seed = seed;
+
+            float[,] values = Simplex.Calc2D(width, height, 0.01f);
+
+            for (int x = 0; x < width; x += gridSize)
             {
-                for (int j = 0; j < height; j++)
+                for (int y = 0; y < height; y += gridSize)
                 {
-                    double v = (perlinNoise.Noise(2 * point.X * widthDivisor, 2 * point.Y * heightDivisor, -0.5) + 1) / 2 * 0.7 +
-                        (perlinNoise.Noise(4 * point.X * widthDivisor, 4 * point.Y * heightDivisor, 0) + 1) / 2 * 0.2 +
-                            (perlinNoise.Noise(8 * point.X * widthDivisor, 8 * point.Y * heightDivisor, +0.5) + 1) / 2 * 0.1;
-                    v = Math.Min(1, Math.Max(0, v));
-                    byte b = (byte)(v * 255);
-                    bitmap.SetPixel(i, j, Color.FromArgb(b, b, b));
+                    for (int i = 0; i < gridSize; i++)
+                    {
+                        if ((x + i) >= width) break;
+                        for (int j = 0; j < gridSize; j++)
+                        {
+                            if ((y + j) >= height) break;
+                            destinationData[(y + j) * flagData.Stride + (x + i) * bitsPerPixelElement + 2] = (byte)(values[x, y] * 0.6);
+                            destinationData[(y + j) * flagData.Stride + (x + i) * bitsPerPixelElement + 1] = (byte)(values[x, y] * 0.6);
+                            destinationData[(y + j) * flagData.Stride + (x + i) * bitsPerPixelElement] = (byte)values[x, y];
+                        }
+                    }
                 }
             }
-            panel1.BackgroundImage = bitmap;
+
+            System.Runtime.InteropServices.Marshal.Copy(destinationData, 0, flagData.Scan0, destinationData.Length);
+            flag.UnlockBits(flagData);
+            panel1.BackgroundImage = flag;
+            savedImg = flag;
+            panel1.Invalidate();
+        }
+
+        private void runPreditor(object sender, EventArgs e)
+        {
 
         }
+
+        private void localBestPSO()
+        {
+
         }
+
+        private void GlobalBestPSO()
+        {
+
+        }
+    }
 }
