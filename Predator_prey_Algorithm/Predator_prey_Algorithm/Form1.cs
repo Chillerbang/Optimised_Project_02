@@ -33,39 +33,25 @@ namespace Predator_prey_Algorithm
 
         private void GenerateGraphic()
         {
-            Bitmap bmp = new Bitmap(width, height);
+            PerlinNoise perlinNoise = new PerlinNoise(1);
+            Bitmap bitmap = new Bitmap(panel1.Width, panel1.Height);
+            double widthDivisor = 1 / (double)panel1.Width;
+            double heightDivisor = 1 / (double)panel1.Height;
+            Point point = new Point();
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
                 {
-                    using (Graphics graph = Graphics.FromImage(bmp))
-                    {
-                        Rectangle ImageSize = new Rectangle(i, j, 1, 1);
-                        SolidBrush bs;
-                            bs = new SolidBrush(Color.FromArgb(RandomiseAValue(), 0, 0, 0));
-                        //blank color
-                        //white color
-                        
-                        graph.FillRectangle(bs, ImageSize);
-                    }
+                    double v = (perlinNoise.Noise(2 * point.X * widthDivisor, 2 * point.Y * heightDivisor, -0.5) + 1) / 2 * 0.7 +
+                        (perlinNoise.Noise(4 * point.X * widthDivisor, 4 * point.Y * heightDivisor, 0) + 1) / 2 * 0.2 +
+                            (perlinNoise.Noise(8 * point.X * widthDivisor, 8 * point.Y * heightDivisor, +0.5) + 1) / 2 * 0.1;
+                    v = Math.Min(1, Math.Max(0, v));
+                    byte b = (byte)(v * 255);
+                    bitmap.SetPixel(i, j, Color.FromArgb(b, b, b));
                 }
             }
-            panel1.BackgroundImage = bmp;
-        }
+            panel1.BackgroundImage = bitmap;
 
-        private void Noise(int seed )
-        {
-            rnd.Next(seed);
         }
-
-        private int RandomiseAValue()
-        {
-            double mean = 200;
-            double stdDev = 10;
-
-            Normal normalDist = new Normal(mean, stdDev);
-            double randomGaussianValue = normalDist.Sample();
-            return (int)randomGaussianValue;
         }
-    }
 }
