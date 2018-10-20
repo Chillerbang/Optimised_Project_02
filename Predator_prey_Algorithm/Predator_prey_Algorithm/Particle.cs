@@ -8,6 +8,18 @@ namespace Predator_prey_Algorithm
 {
     interface Particle
     {
-        
+        int x
+        {
+            get;
+            set;
+        }
+        int y
+        {
+            get;
+            set;
+        }
+
+        void updateVelocity();
+
     }
 }
