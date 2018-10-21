@@ -121,8 +121,43 @@ namespace Predator_prey_Algorithm
             }
             
             DrawAllOfIt(TempImg,particlesList);
-
+            int currentScoreMax = 0;
+            int countGameIteration = 0;
             // now run algorithm
+            while (true)
+            {
+
+
+                if (EndCondition(currentScoreMax))
+                {
+                    break;
+                }
+
+                countGameIteration++;
+
+                if (maxIteration(countGameIteration))
+                {
+                    // restart
+                    particlesList = new List<Particle>();
+                    //create prey
+                    for (int i = 0; i < numPrey; i++)
+                    {
+                        x = rnd.Next(width);
+                        y = rnd.Next(height);
+                        particlesList.Add(new Prey(x, y, savedImg.GetPixel(x, y).B));
+                    }
+                    for (int i = 0; i < numPredators; i++)
+                    {
+                        x = rnd.Next(width);
+                        y = rnd.Next(height);
+
+                        particlesList.Add(new Predator(x, y, savedImg.GetPixel(x, y).B));
+                    }
+
+                    
+                }
+                DrawAllOfIt(TempImg, particlesList);
+            }
         }
 
         private void DrawAllOfIt(Bitmap image,List<Particle> state )
