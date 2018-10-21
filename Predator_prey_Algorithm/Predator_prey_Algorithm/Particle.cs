@@ -8,7 +8,7 @@ namespace Predator_prey_Algorithm
 {
     interface Particle
     {
-        BestPostion Pbest
+        BestPostion Posbest
         {
             get;
         }

@@ -12,17 +12,20 @@ namespace Predator_prey_Algorithm
 
         public Predator(int width, int height, double score)
         {
+            CurrentPostion = new Point();
+            Velocity = new Velocity();
+            Posbest = new BestPostion();
             CurrentPostion.x = width;
             CurrentPostion.y = height;
-            Pbest.x = width;
-            Pbest.y = height;
-            Pbest.score = score;
+            Posbest.x = width;
+            Posbest.y = height;
+            Posbest.score = score;
         }
 
         public Point CurrentPostion { get; set; }
 
         public Velocity Velocity { get; set; }
 
-        public BestPostion Pbest { get; }
+        public BestPostion Posbest { get; }
     }
 }

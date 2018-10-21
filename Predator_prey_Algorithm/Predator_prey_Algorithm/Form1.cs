@@ -18,11 +18,10 @@ namespace Predator_prey_Algorithm
         private int height;
         private int gridSize = 1;
         private int seed = 10;
-        private int numPrey = 500;
+        private int numPrey = 10;
         private int numPredators = 1;
-        private int minChange;
-        private int iterationsMinChange;
-        private int maxValue;
+        private int maxIterations = 500;
+        private int BestValue;
 
         Random rnd;
         private Bitmap savedImg = null;
@@ -54,6 +53,7 @@ namespace Predator_prey_Algorithm
 
         public void CreateBitmapAtRuntime()
         {
+            BestValue = 0;
             Bitmap flag = new Bitmap(width, height, PixelFormat.Format32bppRgb);
             Rectangle flagRect = new Rectangle(0, 0, width, height);
             Graphics flagGraphics = Graphics.FromImage(flag);
@@ -66,7 +66,6 @@ namespace Predator_prey_Algorithm
             Simplex.Seed = seed;
 
             float[,] values = Simplex.Calc2D(width, height, 0.01f);
-
             for (int x = 0; x < width; x += gridSize)
             {
                 for (int y = 0; y < height; y += gridSize)
@@ -82,11 +81,15 @@ namespace Predator_prey_Algorithm
                             destinationData[(y + j) * flagData.Stride + (x + i) * bitsPerPixelElement] = (byte)values[x, y];
 
                             //get largest values
+                            if (BestValue < (byte)values[x, y])
+                            {
+                                BestValue = (byte)values[x, y];
+                            }
                         }
                     }
                 }
             }
-
+            System.Diagnostics.Debug.WriteLine(" Best Value " + BestValue);
             System.Runtime.InteropServices.Marshal.Copy(destinationData, 0, flagData.Scan0, destinationData.Length);
             flag.UnlockBits(flagData);
             panel1.BackgroundImage = flag;
@@ -100,14 +103,24 @@ namespace Predator_prey_Algorithm
             TempImg = savedImg.Clone(new Rectangle(0, 0, savedImg.Width, savedImg.Height), savedImg.PixelFormat);
             particlesList = new List<Particle>();
             //create prey
+            int x;
+            int y;
+            int count = 0;
+            
             for (int i = 0; i < numPrey; i++)
             {
-                particlesList.Add(new Prey(rnd.Next(width), rnd.Next(height)));
+                x = rnd.Next(width);
+                y = rnd.Next(height);
+                particlesList.Add(new Prey(x, y, savedImg.GetPixel(x, y).B));
             }
             for (int i = 0; i < numPredators; i++)
             {
-                particlesList.Add(new Predator(rnd.Next(width), rnd.Next(height)));
+                x = rnd.Next(width);
+                y = rnd.Next(height);
+
+                particlesList.Add(new Predator(x, y, savedImg.GetPixel(x, y).B));
             }
+            
             DrawAllOfIt(TempImg,particlesList);
         }
 
@@ -119,17 +132,16 @@ namespace Predator_prey_Algorithm
                 {
                     try
                     {
-                    image.SetPixel(p.x - 1, p.y - 1, Color.Red);
-                    image.SetPixel(p.x - 1, p.y, Color.Red);
-                    image.SetPixel(p.x - 1, p.y + 1, Color.Red);
+                    image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y, Color.Red);
 
-                    image.SetPixel(p.x, p.y, Color.Red);
-                    image.SetPixel(p.x, p.y + 1, Color.Red);
-                    image.SetPixel(p.x, p.y - 1, Color.Red);
-
-                    image.SetPixel(p.x + 1, p.y - 1, Color.Red);
-                    image.SetPixel(p.x + 1, p.y, Color.Red);
-                    image.SetPixel(p.x + 1, p.y + 1, Color.Red);
+                        image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y - 1, Color.DarkRed);
+                        image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y, Color.DarkRed);
+                        image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y + 1, Color.DarkRed);
+                        image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y + 1, Color.DarkRed);
+                        image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y - 1, Color.DarkRed);
+                        image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y - 1, Color.DarkRed);
+                        image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y, Color.DarkRed);
+                        image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y + 1, Color.DarkRed);
                     }
                     catch (Exception ex)
                     {
@@ -140,17 +152,16 @@ namespace Predator_prey_Algorithm
                 {
                     try
                     {
-                        image.SetPixel(p.x - 1, p.y - 1, Color.Green);
-                        image.SetPixel(p.x - 1, p.y, Color.Green);
-                        image.SetPixel(p.x - 1, p.y + 1, Color.Green);
+                        image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y, Color.Yellow);
 
-                        image.SetPixel(p.x, p.y, Color.Green);
-                        image.SetPixel(p.x, p.y + 1, Color.Green);
-                        image.SetPixel(p.x, p.y - 1, Color.Green);
-
-                        image.SetPixel(p.x + 1, p.y - 1, Color.Green);
-                        image.SetPixel(p.x + 1, p.y, Color.Green);
-                        image.SetPixel(p.x + 1, p.y + 1, Color.Green);
+                        image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y - 1, Color.GreenYellow);
+                        image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y, Color.GreenYellow);
+                        image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y + 1, Color.GreenYellow);
+                        image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y + 1, Color.GreenYellow);
+                        image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y - 1, Color.GreenYellow);
+                        image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y - 1, Color.GreenYellow);
+                        image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y, Color.GreenYellow);
+                        image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y + 1, Color.GreenYellow);
                     }
                     catch(Exception ex)
                     {
@@ -172,18 +183,29 @@ namespace Predator_prey_Algorithm
 
         }
 
-        private bool RestartCondition()
+        private bool maxIteration(int currentIteration)
         {
-            //set iterations
-            if ()
+            if (currentIteration > maxIterations)
             {
-
+                return false;
             }
             else
             {
                 return true;
             }
-            //no increment in function
+        }
+
+        private bool EndCondition(int CurrentScore)
+        {
+            //set iterations
+            if (CurrentScore == BestValue)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)

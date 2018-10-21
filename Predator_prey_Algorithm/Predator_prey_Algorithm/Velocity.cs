@@ -8,7 +8,7 @@ namespace Predator_prey_Algorithm
 {
     class Velocity
     {
-        public int x;
-        public int y;
+        public double x;
+        public double y;
     }
 }
