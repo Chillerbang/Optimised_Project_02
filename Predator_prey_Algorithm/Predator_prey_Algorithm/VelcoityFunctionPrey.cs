@@ -13,30 +13,30 @@ namespace Predator_prey_Algorithm
         private Predator[] predators;
 
         private double clamp;
-        private double randomx1;
-        private double randomx2;
-        private double randomy1;
-        private double randomy2;
+        private double alphax;
+        private double betax;
+        private double alphay;
+        private double betay;
         private int maxheight;
         private int maxwidth;
 
-        public VelcoityFunctionPrey(Prey current, Prey best, Predator[] predators, double clamp, double randomx1, double randomx2, double randomy2, double randomy1, int maxheight, int maxwidth)
+        public VelcoityFunctionPrey(Prey current, Prey best, Predator[] predators, double clamp, double alphax, double betax, double betay, double alphay, int maxheight, int maxwidth)
         {
             this.current = current;
             this.best = best;
             this.clamp = clamp;
             this.predators = predators;
-            this.randomx1 = randomx1;
-            this.randomx2 = randomx2;
-            this.randomy1 = randomy1;
-            this.randomy2 = randomy2;
+            this.alphax = alphax;
+            this.betax = betax;
+            this.alphay = alphay;
+            this.betay = betay;
         }
 
         public Prey newPrey()
         {
             //update Velocity
-            current.Velocity.y += clamp * randomy1 * (current.Posbest.y - current.CurrentPostion.y) + clamp * randomy2 * (best.CurrentPostion.y - current.CurrentPostion.y);
-            current.Velocity.x += clamp * randomx1 * (current.Posbest.x - current.CurrentPostion.x) + clamp * randomx2 * (best.CurrentPostion.x - current.CurrentPostion.x);
+            current.Velocity.y += clamp * alphay * (current.Posbest.y - current.CurrentPostion.y) + clamp * betay * (best.CurrentPostion.y - current.CurrentPostion.y);
+            current.Velocity.x += clamp * alphax * (current.Posbest.x - current.CurrentPostion.x) + clamp * betax * (best.CurrentPostion.x - current.CurrentPostion.x);
 
             if (((int)current.Velocity.x + current.CurrentPostion.x) > maxwidth)
             {
