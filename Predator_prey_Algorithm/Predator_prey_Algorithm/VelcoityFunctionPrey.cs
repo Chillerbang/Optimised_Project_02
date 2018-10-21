@@ -20,7 +20,7 @@ namespace Predator_prey_Algorithm
         private int maxheight;
         private int maxwidth;
 
-        public VelcoityFunctionPrey(Prey current, Prey best, Predator[] predators, double clamp, double alphax, double betax, double betay, double alphay, int maxheight, int maxwidth)
+        public VelcoityFunctionPrey(Prey current, Prey best, Predator[] predators, double clamp, double alphax, double betax, double alphay, double betay, int maxheight, int maxwidth)
         {
             this.current = current;
             this.best = best;
