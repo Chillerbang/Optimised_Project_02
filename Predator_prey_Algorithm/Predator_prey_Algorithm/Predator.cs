@@ -11,10 +11,10 @@ namespace Predator_prey_Algorithm
         private int _x;
         private int _y;
 
-        public Predator(int x, int y)
+        public Predator(int width, int height)
         {
-            _x = x;
-            _y = y;
+            _x = width;
+            _y = height;
         }
 
 

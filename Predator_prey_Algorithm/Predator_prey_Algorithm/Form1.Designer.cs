@@ -35,7 +35,7 @@
             this.lblFitness = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.lblnopred = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numpreditors = new System.Windows.Forms.NumericUpDown();
             this.rbtGbest = new System.Windows.Forms.RadioButton();
             this.rbtLbest = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,21 +43,21 @@
             this.nudSize = new System.Windows.Forms.NumericUpDown();
             this.nudSeed = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numpreditors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(12, 11);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(500, 500);
+            this.panel1.Size = new System.Drawing.Size(1129, 595);
             this.panel1.TabIndex = 0;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(12, 518);
+            this.btnStart.Location = new System.Drawing.Point(12, 627);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(235, 23);
             this.btnStart.TabIndex = 1;
@@ -68,7 +68,7 @@
             // textBox1
             // 
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(68, 558);
+            this.textBox1.Location = new System.Drawing.Point(608, 630);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(120, 20);
             this.textBox1.TabIndex = 2;
@@ -76,7 +76,7 @@
             // lblIterations
             // 
             this.lblIterations.AutoSize = true;
-            this.lblIterations.Location = new System.Drawing.Point(12, 560);
+            this.lblIterations.Location = new System.Drawing.Point(552, 632);
             this.lblIterations.Name = "lblIterations";
             this.lblIterations.Size = new System.Drawing.Size(50, 13);
             this.lblIterations.TabIndex = 3;
@@ -85,7 +85,7 @@
             // lblFitness
             // 
             this.lblFitness.AutoSize = true;
-            this.lblFitness.Location = new System.Drawing.Point(12, 593);
+            this.lblFitness.Location = new System.Drawing.Point(752, 633);
             this.lblFitness.Name = "lblFitness";
             this.lblFitness.Size = new System.Drawing.Size(40, 13);
             this.lblFitness.TabIndex = 5;
@@ -94,7 +94,7 @@
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(68, 591);
+            this.textBox2.Location = new System.Drawing.Point(808, 631);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(120, 20);
             this.textBox2.TabIndex = 4;
@@ -102,24 +102,24 @@
             // lblnopred
             // 
             this.lblnopred.AutoSize = true;
-            this.lblnopred.Location = new System.Drawing.Point(242, 565);
+            this.lblnopred.Location = new System.Drawing.Point(409, 671);
             this.lblnopred.Name = "lblnopred";
             this.lblnopred.Size = new System.Drawing.Size(103, 13);
             this.lblnopred.TabIndex = 6;
             this.lblnopred.Text = "Number of predators";
             // 
-            // numericUpDown1
+            // numpreditors
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(362, 559);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.numpreditors.Location = new System.Drawing.Point(518, 669);
+            this.numpreditors.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 7;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.numpreditors.Name = "numpreditors";
+            this.numpreditors.Size = new System.Drawing.Size(120, 20);
+            this.numpreditors.TabIndex = 7;
+            this.numpreditors.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -128,11 +128,10 @@
             // rbtGbest
             // 
             this.rbtGbest.AutoSize = true;
-            this.rbtGbest.Location = new System.Drawing.Point(254, 594);
+            this.rbtGbest.Location = new System.Drawing.Point(960, 634);
             this.rbtGbest.Name = "rbtGbest";
             this.rbtGbest.Size = new System.Drawing.Size(78, 17);
             this.rbtGbest.TabIndex = 8;
-            this.rbtGbest.TabStop = true;
             this.rbtGbest.Text = "Global best";
             this.rbtGbest.UseVisualStyleBackColor = true;
             // 
@@ -140,7 +139,7 @@
             // 
             this.rbtLbest.AutoSize = true;
             this.rbtLbest.Checked = true;
-            this.rbtLbest.Location = new System.Drawing.Point(338, 594);
+            this.rbtLbest.Location = new System.Drawing.Point(1044, 634);
             this.rbtLbest.Name = "rbtLbest";
             this.rbtLbest.Size = new System.Drawing.Size(75, 17);
             this.rbtLbest.TabIndex = 9;
@@ -151,7 +150,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 623);
+            this.label1.Location = new System.Drawing.Point(24, 670);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 11;
@@ -160,7 +159,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(237, 625);
+            this.label2.Location = new System.Drawing.Point(216, 671);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 13;
@@ -168,7 +167,7 @@
             // 
             // nudSize
             // 
-            this.nudSize.Location = new System.Drawing.Point(362, 621);
+            this.nudSize.Location = new System.Drawing.Point(284, 669);
             this.nudSize.Minimum = new decimal(new int[] {
             1,
             0,
@@ -185,7 +184,7 @@
             // 
             // nudSeed
             // 
-            this.nudSeed.Location = new System.Drawing.Point(68, 621);
+            this.nudSeed.Location = new System.Drawing.Point(80, 668);
             this.nudSeed.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -202,7 +201,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(254, 518);
+            this.button1.Location = new System.Drawing.Point(254, 627);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(258, 23);
             this.button1.TabIndex = 16;
@@ -214,7 +213,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 653);
+            this.ClientSize = new System.Drawing.Size(1153, 714);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.nudSeed);
             this.Controls.Add(this.nudSize);
@@ -222,7 +221,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rbtLbest);
             this.Controls.Add(this.rbtGbest);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numpreditors);
             this.Controls.Add(this.lblnopred);
             this.Controls.Add(this.lblFitness);
             this.Controls.Add(this.textBox2);
@@ -231,8 +230,8 @@
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.Text = "Predator Prey";
+            ((System.ComponentModel.ISupportInitialize)(this.numpreditors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
             this.ResumeLayout(false);
@@ -249,7 +248,7 @@
         private System.Windows.Forms.Label lblFitness;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label lblnopred;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numpreditors;
         private System.Windows.Forms.RadioButton rbtGbest;
         private System.Windows.Forms.RadioButton rbtLbest;
         private System.Windows.Forms.Label label1;

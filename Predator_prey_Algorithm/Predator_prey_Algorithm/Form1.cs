@@ -18,8 +18,12 @@ namespace Predator_prey_Algorithm
         private int height;
         private int gridSize = 1;
         private int seed = 10;
+        private int numPrey = 500;
+        private int numPredators = 1;
         Random rnd;
         private Bitmap savedImg = null;
+        private Bitmap TempImg = null;
+        private List<Particle> particlesList;
 
         public Form1()
         {
@@ -86,7 +90,70 @@ namespace Predator_prey_Algorithm
 
         private void runPreditor(object sender, EventArgs e)
         {
+            numPredators = (int)numpreditors.Value;
+            TempImg = savedImg.Clone(new Rectangle(0, 0, savedImg.Width, savedImg.Height), savedImg.PixelFormat);
+            particlesList = new List<Particle>();
+            //create prey
+            for (int i = 0; i < numPrey; i++)
+            {
+                particlesList.Add(new Prey(rnd.Next(width), rnd.Next(height)));
+            }
+            for (int i = 0; i < numPredators; i++)
+            {
+                particlesList.Add(new Predator(rnd.Next(width), rnd.Next(height)));
+            }
+            DrawAllOfIt(TempImg,particlesList);
+        }
 
+        private void DrawAllOfIt(Bitmap image,List<Particle> state )
+        {
+            foreach(Particle p in state)
+            {
+                if (p is Predator)
+                {
+                    try
+                    {
+                        image.SetPixel(p.x - 1, p.y - 1, Color.Red);
+                    image.SetPixel(p.x - 1, p.y, Color.Red);
+                    image.SetPixel(p.x - 1, p.y + 1, Color.Red);
+
+                    image.SetPixel(p.x, p.y, Color.Red);
+                    image.SetPixel(p.x, p.y + 1, Color.Red);
+                    image.SetPixel(p.x, p.y - 1, Color.Red);
+
+                    image.SetPixel(p.x + 1, p.y - 1, Color.Red);
+                    image.SetPixel(p.x + 1, p.y, Color.Red);
+                    image.SetPixel(p.x + 1, p.y + 1, Color.Red);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        image.SetPixel(p.x - 1, p.y - 1, Color.Green);
+                        image.SetPixel(p.x - 1, p.y, Color.Green);
+                        image.SetPixel(p.x - 1, p.y + 1, Color.Green);
+
+                        image.SetPixel(p.x, p.y, Color.Green);
+                        image.SetPixel(p.x, p.y + 1, Color.Green);
+                        image.SetPixel(p.x, p.y - 1, Color.Green);
+
+                        image.SetPixel(p.x + 1, p.y - 1, Color.Green);
+                        image.SetPixel(p.x + 1, p.y, Color.Green);
+                        image.SetPixel(p.x + 1, p.y + 1, Color.Green);
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+                }
+            }
+            panel1.BackgroundImage = image;
+            panel1.Invalidate();
         }
 
         private void localBestPSO()

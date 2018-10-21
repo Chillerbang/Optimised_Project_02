@@ -11,10 +11,11 @@ namespace Predator_prey_Algorithm
         private int _x;
         private int _y;
 
-        public Prey(int x, int y)
+        public Prey(int width, int height)
         {
-            _x = x;
-            _y = y;
+            
+            _x = width;
+            _y = height;
         }
 
         public void updateVelocity()
@@ -22,7 +23,10 @@ namespace Predator_prey_Algorithm
 
         }
 
-        
+        public void hunt(Prey[] allPrey)
+        {
+
+        }
 
         public int x { get { return _x; } set { this._x = value; } }
         public int y { get { return _y; } set { this._y = value; } }
