@@ -8,7 +8,20 @@ namespace Predator_prey_Algorithm
 {
     interface Particle
     {
-        int velocity
+        List<Point> pbest
+        {
+            get;
+        }
+
+        void AddNewPostion
+
+        int velocityx
+        {
+            get;
+            set;
+        }
+
+        int velocityy
         {
             get;
             set;
@@ -25,7 +38,6 @@ namespace Predator_prey_Algorithm
             set;
         }
 
-        void updateVelocity();
 
     }
 }
