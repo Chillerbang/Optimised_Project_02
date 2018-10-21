@@ -31,7 +31,7 @@ namespace Predator_prey_Algorithm
         public Predator newPredator()
         {
             //update Velocity
-            current.velocityy = learningFactor * current.velocityy + clamp * randomx1 * (best.velocityy - current.velocityy) + learningFactor * randomx2 *  
+            current. = learningFactor * current.velocityy + clamp * randomx1 * (best.velocityy - current.velocityy) + learningFactor * randomx2 *  
             return current;
         }
     }

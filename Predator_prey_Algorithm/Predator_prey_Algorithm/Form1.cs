@@ -119,7 +119,7 @@ namespace Predator_prey_Algorithm
                 {
                     try
                     {
-                        image.SetPixel(p.x - 1, p.y - 1, Color.Red);
+                    image.SetPixel(p.x - 1, p.y - 1, Color.Red);
                     image.SetPixel(p.x - 1, p.y, Color.Red);
                     image.SetPixel(p.x - 1, p.y + 1, Color.Red);
 

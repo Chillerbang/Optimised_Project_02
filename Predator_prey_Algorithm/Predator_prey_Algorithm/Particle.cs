@@ -8,36 +8,22 @@ namespace Predator_prey_Algorithm
 {
     interface Particle
     {
-        List<Point> pbest
+        BestPostion Pbest
         {
             get;
         }
 
-        void AddNewPostion
-
-        int velocityx
-        {
-            get;
-            set;
-        }
-
-        int velocityy
+        Point CurrentPostion
         {
             get;
             set;
         }
 
-        int x
+        Velocity Velocity
         {
             get;
             set;
         }
-        int y
-        {
-            get;
-            set;
-        }
-
 
     }
 }

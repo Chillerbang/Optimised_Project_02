@@ -8,24 +8,20 @@ namespace Predator_prey_Algorithm
 {
     class Prey:Particle
     {
-        private int _x;
-        private int _y;
-        private int _velocityx;
-        private int _velocityy;
 
-        public Prey(int width, int height)
+        public Prey(int width, int height, double score)
         {
-            _x = width;
-            _y = height;
-            _velocityy = 0;
-            _velocityx = 0;
+            CurrentPostion.x = width;
+            CurrentPostion.y = height;
+            Pbest.x = width;
+            Pbest.y = height;
+            Pbest.score = score; 
         }
 
-        public int x { get { return _x; } set { this._x = value; } }
-        public int y { get { return _y; } set { this._y = value; } }
+        public Point CurrentPostion { get; set; }
 
-        public int velocityx { get { return _velocityx; } set { this._velocityx = value; } }
-        public int velocityy { get { return _velocityy; } set { this._velocityy = value; } }
+        public Velocity Velocity { get; set; }
 
+        public BestPostion Pbest { get; }
     }
 }
