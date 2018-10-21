@@ -231,6 +231,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Predator Prey";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numpreditors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();

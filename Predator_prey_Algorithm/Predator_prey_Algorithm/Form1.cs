@@ -20,6 +20,10 @@ namespace Predator_prey_Algorithm
         private int seed = 10;
         private int numPrey = 500;
         private int numPredators = 1;
+        private int minChange;
+        private int iterationsMinChange;
+        private int maxValue;
+
         Random rnd;
         private Bitmap savedImg = null;
         private Bitmap TempImg = null;
@@ -76,6 +80,8 @@ namespace Predator_prey_Algorithm
                             destinationData[(y + j) * flagData.Stride + (x + i) * bitsPerPixelElement + 2] = (byte)(values[x, y] * 0.6);
                             destinationData[(y + j) * flagData.Stride + (x + i) * bitsPerPixelElement + 1] = (byte)(values[x, y] * 0.6);
                             destinationData[(y + j) * flagData.Stride + (x + i) * bitsPerPixelElement] = (byte)values[x, y];
+
+                            //get largest values
                         }
                     }
                 }
@@ -164,6 +170,25 @@ namespace Predator_prey_Algorithm
         private void GlobalBestPSO()
         {
 
+        }
+
+        private bool RestartCondition()
+        {
+            //set iterations
+            if ()
+            {
+
+            }
+            else
+            {
+                return true;
+            }
+            //no increment in function
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
