@@ -105,7 +105,6 @@ namespace Predator_prey_Algorithm
             //create prey
             int x;
             int y;
-            int count = 0;
             
             for (int i = 0; i < numPrey; i++)
             {
@@ -122,6 +121,8 @@ namespace Predator_prey_Algorithm
             }
             
             DrawAllOfIt(TempImg,particlesList);
+
+            // now run algorithm
         }
 
         private void DrawAllOfIt(Bitmap image,List<Particle> state )
