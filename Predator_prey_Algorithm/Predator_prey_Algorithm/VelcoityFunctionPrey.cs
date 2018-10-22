@@ -53,6 +53,7 @@ namespace Predator_prey_Algorithm
                 if (((int)current.Velocity.x + current.CurrentPostion.x) > maxwidth)
                 {
                     current.CurrentPostion.x = maxwidth;
+                    current.Velocity.x = 0;
                 }
                 else
                 {
@@ -67,6 +68,7 @@ namespace Predator_prey_Algorithm
                 if (((int)current.Velocity.y + current.CurrentPostion.y) > maxheight)
                 {
                     current.CurrentPostion.y = maxheight;
+                    current.Velocity.y = 0;
                 }
                 else
                 {

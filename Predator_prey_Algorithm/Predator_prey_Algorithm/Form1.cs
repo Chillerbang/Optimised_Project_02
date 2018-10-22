@@ -18,18 +18,19 @@ namespace Predator_prey_Algorithm
         private int height;
         private int gridSize = 1;
         private int seed = 10;
-        private int numPrey = 50;
+        private int numPrey = 500;
         private int numPredators = 1;
-        private int maxIterations = 200;
+        private int maxIterations = 1000;
         private Prey BestPrey;
         private int BestValue;
         private int stamina = 50;
         double tired = 0.1;
-        double clamp    =    0.1;
+        double clamp    =    1;
         double alphax   =    2;
         double betax    =    2;
         double alphay   =    2;
         double betay    =    2;
+        private bool enablePreditor = false;
 
         Random rnd;
         private Bitmap savedImg = null;
@@ -110,11 +111,13 @@ namespace Predator_prey_Algorithm
                     if (flag.GetPixel(x, y).B > biggest)
                     {
                         biggest = flag.GetPixel(x, y).B;
+                        System.Diagnostics.Debug.WriteLine(" Pixel " + biggest);
+                        System.Diagnostics.Debug.WriteLine(" X " + x);
+                        System.Diagnostics.Debug.WriteLine(" Y " + y);
                     }
                 }
             }
             savedImg = flag;
-            System.Diagnostics.Debug.WriteLine(" Pixel " + biggest);
             panel1.Invalidate();
         }
 
@@ -193,7 +196,7 @@ namespace Predator_prey_Algorithm
                 //System.Diagnostics.Debug.WriteLine(" I Best at " + BestPrey.CurrentPostion.x + " y: " + BestPrey.CurrentPostion.y);
                 if (tiredcount > stamina)
                 {
-                    tired = tired * 0.05;
+                    tired = tired * 0.5;
                     tiredcount = 0;
                 }
                 tiredcount++;
