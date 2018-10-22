@@ -22,6 +22,7 @@ namespace Predator_prey_Algorithm
         private int numPredators = 1;
         private int maxIterations = 100;
         private int delay = 50;
+        private bool enablePreditor = false;
 
         private int currentScoreMax = 0;
         private int countGameIteration = 0;
@@ -33,6 +34,7 @@ namespace Predator_prey_Algorithm
         private int stamina = 100;
         private double tired = 1;
         private double tiredRatePrey = 1;
+        private bool displaySwarm = true;
 
         //predator movements
         private double tiredPredator = 0.2;
@@ -69,7 +71,7 @@ namespace Predator_prey_Algorithm
         double betax    =    2;
         double alphay   =    2;
         double betay    =    2;
-        private bool enablePreditor = false;
+        
 
         private Prey BestPrey;
         Random rnd;
@@ -225,7 +227,7 @@ namespace Predator_prey_Algorithm
                 {
                     if (particlesArray[i] is Prey)
                     {
-                        VelcoityFunctionPrey vfp = new VelcoityFunctionPrey((Prey)particlesArray[i], predatorsBeforeMoveList, BestPrey, clamp, alphax, betax, alphay, betay, TempImg,tired);
+                        VelcoityFunctionPrey vfp = new VelcoityFunctionPrey((Prey)particlesArray[i], predatorsBeforeMoveList, BestPrey, clamp, alphax, betax, alphay, betay, TempImg,tired,enablePreditor);
                         particlesArray[countParticle] = vfp.newPrey();
                         if (BestPrey.CurrentPostion.score < particlesArray[countParticle].CurrentPostion.score )
                         {
@@ -246,6 +248,8 @@ namespace Predator_prey_Algorithm
                     {
                         // lets so predator stuff here
                         VelocityFunctionPredator vfp = new VelocityFunctionPredator((Predator)particlesArray[i], BestPrey, clamp, alphax, betax, alphay, betay, TempImg, tiredPredator);
+                        particlesArray[countParticle] = vfp.newPredator();
+
                         // give the predator less stamina
                     }
                 }
@@ -333,17 +337,20 @@ namespace Predator_prey_Algorithm
                         }
                         else
                         {
-                            image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y, Color.Yellow);
-                            if ((p.CurrentPostion.x > 1) && (p.CurrentPostion.x < image.Width - 1) && (p.CurrentPostion.y > 1) && (p.CurrentPostion.y < image.Height - 1))
+                            if (displaySwarm)
                             {
-                                image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y - 1, Color.GreenYellow);
-                                image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y, Color.GreenYellow);
-                                image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y + 1, Color.GreenYellow);
-                                image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y + 1, Color.GreenYellow);
-                                image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y - 1, Color.GreenYellow);
-                                image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y - 1, Color.GreenYellow);
-                                image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y, Color.GreenYellow);
-                                image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y + 1, Color.GreenYellow);
+                                image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y, Color.Yellow);
+                                if ((p.CurrentPostion.x > 1) && (p.CurrentPostion.x < image.Width - 1) && (p.CurrentPostion.y > 1) && (p.CurrentPostion.y < image.Height - 1))
+                                {
+                                    image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y - 1, Color.GreenYellow);
+                                    image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y, Color.GreenYellow);
+                                    image.SetPixel(p.CurrentPostion.x - 1, p.CurrentPostion.y + 1, Color.GreenYellow);
+                                    image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y + 1, Color.GreenYellow);
+                                    image.SetPixel(p.CurrentPostion.x, p.CurrentPostion.y - 1, Color.GreenYellow);
+                                    image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y - 1, Color.GreenYellow);
+                                    image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y, Color.GreenYellow);
+                                    image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y + 1, Color.GreenYellow);
+                                }
                             }
                         }
                         

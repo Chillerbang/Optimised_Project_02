@@ -22,8 +22,9 @@ namespace Predator_prey_Algorithm
         private int maxheight;
         private int maxwidth;
         private double tired;
+        private bool predatorConsider;
 
-        public VelcoityFunctionPrey(Prey current, List<Predator> predatorsBeforeMoveList, Prey best,  double clamp, double alphax, double betax, double alphay, double betay,Bitmap bmp, double tired)
+        public VelcoityFunctionPrey(Prey current, List<Predator> predatorsBeforeMoveList, Prey best,  double clamp, double alphax, double betax, double alphay, double betay,Bitmap bmp, double tired, bool predatorConsider)
         {
             this.current = current;
             this.best = best;
@@ -37,6 +38,7 @@ namespace Predator_prey_Algorithm
             this.maxheight = bmp.Height-1;
             this.maxwidth = bmp.Width-1;
             this.tired = tired;
+            this.predatorConsider = predatorConsider;
         }
 
         public Prey newPrey()

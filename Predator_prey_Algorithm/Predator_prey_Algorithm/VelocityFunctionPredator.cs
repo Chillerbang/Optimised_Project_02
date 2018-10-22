@@ -31,7 +31,7 @@ namespace Predator_prey_Algorithm
             this.betax = betax;
             this.alphay = alphay;
             this.betay = betay;
-
+            this.bmp = bmp;
             this.maxheight = bmp.Height - 1;
             this.maxwidth = bmp.Width - 1;
             this.tired = tired;
@@ -40,8 +40,8 @@ namespace Predator_prey_Algorithm
         public Predator newPredator()
         {
             //update Velocity
-            current.Velocity.y += clamp * alphay * (current.Posbest.y - current.CurrentPostion.y) + clamp * betay * (best.CurrentPostion.y - current.CurrentPostion.y);
-            current.Velocity.x += clamp * alphax * (current.Posbest.x - current.CurrentPostion.x) + clamp * betax * (best.CurrentPostion.x - current.CurrentPostion.x);
+            current.Velocity.y += (clamp * alphay * (current.Posbest.y - current.CurrentPostion.y) + clamp * betay * (best.CurrentPostion.y - current.CurrentPostion.y)) * tired*0.1;
+            current.Velocity.x += (clamp * alphax * (current.Posbest.x - current.CurrentPostion.x) + clamp * betax * (best.CurrentPostion.x - current.CurrentPostion.x)) * tired*0.1;
 
             if ((current.CurrentPostion.x == best.CurrentPostion.x) && (current.CurrentPostion.y == best.CurrentPostion.y))
             {
