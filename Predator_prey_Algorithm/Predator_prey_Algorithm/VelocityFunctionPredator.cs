@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace Predator_prey_Algorithm
     {
         private Predator current;
         private Prey best;
+        private Bitmap bmp;
+
         private double clamp;
         private double alphax;
         private double betax;
@@ -17,8 +20,9 @@ namespace Predator_prey_Algorithm
         private double betay;
         private int maxheight;
         private int maxwidth;
+        private double tired;
 
-        public VelocityFunctionPredator(Predator current, Prey best, double clamp, double alphax, double betax, double alphay, double betay, int maxheight, int maxwidth)
+        public VelocityFunctionPredator(Predator current, Prey best, double clamp, double alphax, double betax, double alphay, double betay, Bitmap bmp, double tired)
         {
             this.current = current;
             this.best = best;
@@ -27,6 +31,10 @@ namespace Predator_prey_Algorithm
             this.betax = betax;
             this.alphay = alphay;
             this.betay = betay;
+
+            this.maxheight = bmp.Height - 1;
+            this.maxwidth = bmp.Width - 1;
+            this.tired = tired;
         }
 
         public Predator newPredator()

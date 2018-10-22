@@ -23,7 +23,7 @@ namespace Predator_prey_Algorithm
         private int maxwidth;
         private double tired;
 
-        public VelcoityFunctionPrey(Prey current, Prey best,  double clamp, double alphax, double betax, double alphay, double betay,Bitmap bmp, double tired)
+        public VelcoityFunctionPrey(Prey current, List<Predator> predatorsBeforeMoveList, Prey best,  double clamp, double alphax, double betax, double alphay, double betay,Bitmap bmp, double tired)
         {
             this.current = current;
             this.best = best;
@@ -44,6 +44,7 @@ namespace Predator_prey_Algorithm
             //update Velocity
             current.Velocity.y += (clamp * alphay * (current.Posbest.y - current.CurrentPostion.y) + clamp * betay * (best.CurrentPostion.y - current.CurrentPostion.y))* tired;
             current.Velocity.x += (clamp * alphax * (current.Posbest.x - current.CurrentPostion.x) + clamp * betax * (best.CurrentPostion.x - current.CurrentPostion.x))*tired;
+            // Add fear of predator
             if ((current.CurrentPostion.x == best.CurrentPostion.x) && (current.CurrentPostion.y == best.CurrentPostion.y))
             {
                 // dont touch it

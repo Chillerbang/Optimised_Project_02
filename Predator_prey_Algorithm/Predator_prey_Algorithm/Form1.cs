@@ -166,11 +166,20 @@ namespace Predator_prey_Algorithm
                 TempImg = savedImg.Clone(new Rectangle(0, 0, savedImg.Width, savedImg.Height), savedImg.PixelFormat);
                 int countParticle = 0;
                 Particle[] particlesArray = particlesList.ToArray();
+                List<Predator> predatorsBeforeMoveList = new List<Predator>();
+                for (int i = 0; i < particlesArray.Length; i++)
+                {
+                    if (particlesArray[i] is Predator)
+                    {
+                        // save predator
+                        predatorsBeforeMoveList.Add((Predator)particlesArray[i]);
+                    }
+                }
                 for (int i = 0; i < particlesArray.Length; i++)
                 {
                     if (particlesArray[i] is Prey)
                     {
-                        VelcoityFunctionPrey vfp = new VelcoityFunctionPrey((Prey)particlesArray[i], BestPrey, clamp, alphax, betax, alphay, betay, TempImg,tired);
+                        VelcoityFunctionPrey vfp = new VelcoityFunctionPrey((Prey)particlesArray[i], predatorsBeforeMoveList, BestPrey, clamp, alphax, betax, alphay, betay, TempImg,tired);
                         particlesArray[countParticle] = vfp.newPrey();
                         if (BestPrey.CurrentPostion.score < particlesArray[countParticle].CurrentPostion.score )
                         {
@@ -190,6 +199,7 @@ namespace Predator_prey_Algorithm
                     else
                     {
                         // lets so predator stuff here
+                        VelocityFunctionPredator vfp = new VelocityFunctionPredator((Predator)particlesArray[i], BestPrey, clamp, alphax, betax, alphay, betay, TempImg, tired);
                         // give the predator less stamina
                     }
                 }
