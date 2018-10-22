@@ -22,6 +22,11 @@ namespace Predator_prey_Algorithm
         private int numPredators = 1;
         private int maxIterations = 500;
         private int BestValue;
+        double clamp    =    0.5;
+        double alphax   =    0.6;
+        double betax    =    0.4;
+        double alphay   =    0.8;
+        double betay    =    0.2;
 
         Random rnd;
         private Bitmap savedImg = null;
@@ -105,12 +110,22 @@ namespace Predator_prey_Algorithm
             //create prey
             int x;
             int y;
+            Prey Best = new Prey(0,0,0);
             
             for (int i = 0; i < numPrey; i++)
             {
                 x = rnd.Next(width);
                 y = rnd.Next(height);
                 particlesList.Add(new Prey(x, y, savedImg.GetPixel(x, y).B));
+                if (Best.CurrentPostion.score < savedImg.GetPixel(x, y).B)
+                {
+                    Best.CurrentPostion.x = x;
+                    Best.CurrentPostion.y = y;
+                    Best.CurrentPostion.score = savedImg.GetPixel(x, y).B;
+                    Best.Posbest.y = y;
+                    Best.Posbest.x = x;
+                    Best.Posbest.score = savedImg.GetPixel(x, y).B;
+                }
             }
             for (int i = 0; i < numPredators; i++)
             {
@@ -126,9 +141,28 @@ namespace Predator_prey_Algorithm
             // now run algorithm
             while (true)
             {
+                TempImg = savedImg.Clone(new Rectangle(0, 0, savedImg.Width, savedImg.Height), savedImg.PixelFormat);
+                int countParticle = 0;
+                Particle[] particlesArray = particlesList.ToArray();
+                for (int i = 0; i < particlesArray.Length; i++)
+                {
+                    if (particlesArray[i] is Prey)
+                    {
+                        VelcoityFunctionPrey vfp = new VelcoityFunctionPrey((Prey)particlesArray[i], Best, clamp, alphax, betax, alphay, betay, height, width, TempImg);
+                        
+                        particlesArray[countParticle] = vfp.newPrey();
+                        
+                    }
+                    else
+                    {
 
 
-                if (EndCondition(currentScoreMax))
+                    }
+                }
+                particlesList = particlesArray.ToList();
+                DrawAllOfIt(TempImg, particlesList);
+
+                if (!EndCondition(currentScoreMax))
                 {
                     break;
                 }
@@ -156,11 +190,11 @@ namespace Predator_prey_Algorithm
 
                     
                 }
-                DrawAllOfIt(TempImg, particlesList);
+                
             }
         }
 
-        private void DrawAllOfIt(Bitmap image,List<Particle> state )
+        private void DrawAllOfIt(Bitmap image,List<Particle> state)
         {
             foreach(Particle p in state)
             {
@@ -199,7 +233,7 @@ namespace Predator_prey_Algorithm
                         image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y, Color.GreenYellow);
                         image.SetPixel(p.CurrentPostion.x + 1, p.CurrentPostion.y + 1, Color.GreenYellow);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
 
                     }
@@ -236,11 +270,11 @@ namespace Predator_prey_Algorithm
             //set iterations
             if (CurrentScore == BestValue)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 

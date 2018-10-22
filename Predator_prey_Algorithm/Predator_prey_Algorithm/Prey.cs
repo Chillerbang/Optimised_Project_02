@@ -8,7 +8,6 @@ namespace Predator_prey_Algorithm
 {
     class Prey:Particle
     {
-
         public Prey(int width, int height, double score)
         {
             CurrentPostion = new Point();
@@ -16,9 +15,10 @@ namespace Predator_prey_Algorithm
             Posbest = new BestPostion();
             CurrentPostion.x = width;
             CurrentPostion.y = height;
+            CurrentPostion.score = score;
             Posbest.x = width;
             Posbest.y = height;
-            Posbest.score = score; 
+            Posbest.score = score;
         }
 
         public Point CurrentPostion { get; set; }

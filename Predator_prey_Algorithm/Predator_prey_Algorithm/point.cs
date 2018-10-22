@@ -10,5 +10,6 @@ namespace Predator_prey_Algorithm
     {
         public int x;
         public int y;
+        public double score;
     }
 }

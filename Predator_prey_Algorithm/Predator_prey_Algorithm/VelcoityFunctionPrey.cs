@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace Predator_prey_Algorithm
         private Prey current;
         private Prey best;
         private Predator[] predators;
+        private Bitmap bmp;
 
         private double clamp;
         private double alphax;
@@ -20,16 +22,19 @@ namespace Predator_prey_Algorithm
         private int maxheight;
         private int maxwidth;
 
-        public VelcoityFunctionPrey(Prey current, Prey best, Predator[] predators, double clamp, double alphax, double betax, double alphay, double betay, int maxheight, int maxwidth)
+        public VelcoityFunctionPrey(Prey current, Prey best,  double clamp, double alphax, double betax, double alphay, double betay, int maxheight, int maxwidth, Bitmap bmp)
         {
             this.current = current;
             this.best = best;
             this.clamp = clamp;
-            this.predators = predators;
+            //this.predators = predators;
             this.alphax = alphax;
             this.betax = betax;
             this.alphay = alphay;
             this.betay = betay;
+            this.bmp = bmp;
+            this.maxheight = maxheight;
+            this.maxwidth = maxwidth;
         }
 
         public Prey newPrey()
@@ -54,6 +59,16 @@ namespace Predator_prey_Algorithm
             else
             {
                 current.CurrentPostion.y += (int)current.Velocity.y;
+            }
+
+            current.CurrentPostion.score = bmp.GetPixel(current.CurrentPostion.x, current.CurrentPostion.y).B;
+
+            // best update
+            if (current.CurrentPostion.score > current.Posbest.score)
+            {
+                current.Posbest.score = current.CurrentPostion.score;
+                current.Posbest.x = current.CurrentPostion.x;
+                current.Posbest.y = current.CurrentPostion.y;
             }
 
             return current;
