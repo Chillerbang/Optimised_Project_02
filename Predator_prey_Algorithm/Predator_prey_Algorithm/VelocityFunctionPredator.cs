@@ -13,7 +13,11 @@ namespace Predator_prey_Algorithm
         private Prey best;
         private Bitmap bmp;
 
+        private static double predatorPenalty = 0.5;
+        private double huntBest = 1;
+        private static double fogetPast = 1;
         private double clamp;
+        private int past = 0;
         private double alphax;
         private double betax;
         private double alphay;
@@ -27,10 +31,10 @@ namespace Predator_prey_Algorithm
             this.current = current;
             this.best = best;
             this.clamp = clamp;
-            this.alphax = alphax;
-            this.betax = betax;
-            this.alphay = alphay;
-            this.betay = betay;
+            this.alphax = alphax + huntBest;
+            this.betax = betax* fogetPast;
+            this.alphay = alphay + huntBest;
+            this.betay = betay* fogetPast;
             this.bmp = bmp;
             this.maxheight = bmp.Height - 1;
             this.maxwidth = bmp.Width - 1;
@@ -40,8 +44,8 @@ namespace Predator_prey_Algorithm
         public Predator newPredator()
         {
             //update Velocity
-            current.Velocity.y += (clamp * alphay * (current.Posbest.y - current.CurrentPostion.y) + clamp * betay * (best.CurrentPostion.y - current.CurrentPostion.y)) * tired*0.1;
-            current.Velocity.x += (clamp * alphax * (current.Posbest.x - current.CurrentPostion.x) + clamp * betax * (best.CurrentPostion.x - current.CurrentPostion.x)) * tired*0.1;
+            current.Velocity.y += ((clamp * alphay * (current.Posbest.y - current.CurrentPostion.y)*past + clamp * (betay * (best.CurrentPostion.y - current.CurrentPostion.y))) )* tired* predatorPenalty;
+            current.Velocity.x += ((clamp * alphax * (current.Posbest.x - current.CurrentPostion.x) * past + clamp * (betax * (best.CurrentPostion.x - current.CurrentPostion.x))) )* tired* predatorPenalty;
 
             if ((current.CurrentPostion.x == best.CurrentPostion.x) && (current.CurrentPostion.y == best.CurrentPostion.y))
             {
