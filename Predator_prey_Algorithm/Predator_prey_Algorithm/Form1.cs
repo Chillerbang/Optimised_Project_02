@@ -23,10 +23,10 @@ namespace Predator_prey_Algorithm
         private int maxIterations = 500;
         private int BestValue;
         double clamp    =    0.5;
-        double alphax   =    0.6;
-        double betax    =    0.4;
-        double alphay   =    0.8;
-        double betay    =    0.2;
+        double alphax   =    1;
+        double betax    =    1;
+        double alphay   =    1;
+        double betay    =    1;
 
         Random rnd;
         private Bitmap savedImg = null;
@@ -150,6 +150,7 @@ namespace Predator_prey_Algorithm
                     {
                         VelcoityFunctionPrey vfp = new VelcoityFunctionPrey((Prey)particlesArray[i], Best, clamp, alphax, betax, alphay, betay, height, width, TempImg);
                         particlesArray[countParticle] = vfp.newPrey();
+                        // update max score :) and we gucchi
                     }
                     else
                     {
@@ -167,8 +168,9 @@ namespace Predator_prey_Algorithm
 
                 countGameIteration++;
 
-                if (maxIteration(countGameIteration))
+                if (!maxIteration(countGameIteration))
                 {
+                    countGameIteration = 0;
                     // restart
                     particlesList = new List<Particle>();
                     //create prey
