@@ -149,9 +149,7 @@ namespace Predator_prey_Algorithm
                     if (particlesArray[i] is Prey)
                     {
                         VelcoityFunctionPrey vfp = new VelcoityFunctionPrey((Prey)particlesArray[i], Best, clamp, alphax, betax, alphay, betay, height, width, TempImg);
-                        
                         particlesArray[countParticle] = vfp.newPrey();
-                        
                     }
                     else
                     {
@@ -162,7 +160,7 @@ namespace Predator_prey_Algorithm
                 particlesList = particlesArray.ToList();
                 DrawAllOfIt(TempImg, particlesList);
 
-                if (!EndCondition(currentScoreMax))
+                if (EndCondition(currentScoreMax))
                 {
                     break;
                 }
@@ -196,7 +194,9 @@ namespace Predator_prey_Algorithm
 
         private void DrawAllOfIt(Bitmap image,List<Particle> state)
         {
-            foreach(Particle p in state)
+            Graphics g = panel1.CreateGraphics();
+
+            foreach (Particle p in state)
             {
                 if (p is Predator)
                 {
@@ -239,8 +239,10 @@ namespace Predator_prey_Algorithm
                     }
                 }
             }
-            panel1.BackgroundImage = image;
-            panel1.Invalidate();
+            Image i = (Image)image;
+            g.DrawImage(i, new PointF(0,0));
+            //panel1.BackgroundImage = image;
+            //panel1.Invalidate();
         }
 
         private void localBestPSO()
