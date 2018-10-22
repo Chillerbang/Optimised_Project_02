@@ -18,20 +18,60 @@ namespace Predator_prey_Algorithm
         private int height;
         private int gridSize = 1;
         private int seed = 10;
-        private int numPrey = 500;
+        private int numPrey = 100;
         private int numPredators = 1;
-        private int maxIterations = 1000;
-        private Prey BestPrey;
+        private int maxIterations = 100;
+        private int delay = 50;
+
+        private int currentScoreMax = 0;
+        private int countGameIteration = 0;
+        private int tiredcount = 0;
+        private int tiredcountPredator = 0;
         private int BestValue;
-        private int stamina = 50;
-        double tired = 0.1;
-        double clamp    =    1;
+
+        //prey suffering
+        private int stamina = 100;
+        private double tired = 1;
+        private double tiredRatePrey = 1;
+
+        //predator movements
+        private double tiredPredator = 0.2;
+        private int staminaPredator = 25;
+        private double tiredRatePredator = 1;
+
+        /*Bird swarming pattern
+
+        double clamp    =    0.2;
+        double alphax   =    2;
+        double betax    =    2;
+        double alphay   =    2;
+        double betay    =    2;
+        private int currentScoreMax = 0;
+        private int countGameIteration = 0;
+        private int tiredcount = 0;
+        private int tiredcountPredator = 0;
+        private int BestValue;
+
+        //prey suffering
+        private int stamina = 100;
+        private double tired = 1;
+        private double tiredRatePrey = 1;
+
+        //predator movements
+        private double tiredPredator = 0.2;
+        private int staminaPredator = 25;
+        private double tiredRatePredator = 1;
+
+
+        */
+        double clamp    =    0.2;
         double alphax   =    2;
         double betax    =    2;
         double alphay   =    2;
         double betay    =    2;
         private bool enablePreditor = false;
 
+        private Prey BestPrey;
         Random rnd;
         private Bitmap savedImg = null;
         private Bitmap TempImg = null;
@@ -111,9 +151,9 @@ namespace Predator_prey_Algorithm
                     if (flag.GetPixel(x, y).B > biggest)
                     {
                         biggest = flag.GetPixel(x, y).B;
-                        System.Diagnostics.Debug.WriteLine(" Pixel " + biggest);
-                        System.Diagnostics.Debug.WriteLine(" X " + x);
-                        System.Diagnostics.Debug.WriteLine(" Y " + y);
+                        //System.Diagnostics.Debug.WriteLine(" Pixel " + biggest);
+                        //System.Diagnostics.Debug.WriteLine(" X " + x);
+                        //System.Diagnostics.Debug.WriteLine(" Y " + y);
                     }
                 }
             }
@@ -123,7 +163,6 @@ namespace Predator_prey_Algorithm
 
         private void runPreditor(object sender, EventArgs e)
         {
-            tired = 0.1;
             numPredators = (int)numpreditors.Value;
             TempImg = savedImg.Clone(new Rectangle(0, 0, savedImg.Width, savedImg.Height), savedImg.PixelFormat);
             particlesList = new List<Particle>();
@@ -157,9 +196,16 @@ namespace Predator_prey_Algorithm
             }
             
             DrawAllOfIt(TempImg,particlesList);
-            int currentScoreMax = 0;
-            int countGameIteration = 0;
-            int tiredcount = 0;
+
+
+            //intialise
+            currentScoreMax = 0;
+            countGameIteration = 0;
+            tiredcount = 0;
+            tiredcountPredator = 0;
+            //tired = 0.1;
+            //tiredPredator = 0.2;
+
             // now run algorithm
             while (true)
             {
@@ -199,17 +245,28 @@ namespace Predator_prey_Algorithm
                     else
                     {
                         // lets so predator stuff here
-                        VelocityFunctionPredator vfp = new VelocityFunctionPredator((Predator)particlesArray[i], BestPrey, clamp, alphax, betax, alphay, betay, TempImg, tired);
+                        VelocityFunctionPredator vfp = new VelocityFunctionPredator((Predator)particlesArray[i], BestPrey, clamp, alphax, betax, alphay, betay, TempImg, tiredPredator);
                         // give the predator less stamina
                     }
                 }
-                //System.Diagnostics.Debug.WriteLine(" I Best at " + BestPrey.CurrentPostion.x + " y: " + BestPrey.CurrentPostion.y);
+                
+
+                // make things tired
+
                 if (tiredcount > stamina)
                 {
-                    tired = tired * 0.5;
-                    tiredcount = 0;
+                    tired = tired * tiredRatePrey;
                 }
+
+                if (tiredcountPredator > staminaPredator)
+                {
+                    tiredPredator = tiredPredator * tiredRatePredator;
+                    tiredcountPredator = 0;
+                }
+                tiredcountPredator++;
                 tiredcount++;
+                
+
                 particlesList = particlesArray.ToList();
                 DrawAllOfIt(TempImg, particlesList);
 
@@ -220,7 +277,7 @@ namespace Predator_prey_Algorithm
 
                 countGameIteration++;
 
-                if (!maxIteration(countGameIteration))
+                if (maxIteration(countGameIteration))
                 {
                     break;
                 }
@@ -231,7 +288,7 @@ namespace Predator_prey_Algorithm
         private void DrawAllOfIt(Bitmap image,List<Particle> state)
         {
             Graphics g = panel1.CreateGraphics();
-
+            System.Threading.Thread.Sleep(delay);
             foreach (Particle p in state)
             {
                 if (p is Predator)
@@ -318,11 +375,11 @@ namespace Predator_prey_Algorithm
         {
             if (currentIteration > maxIterations)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
