@@ -44,44 +44,50 @@ namespace Predator_prey_Algorithm
             //update Velocity
             current.Velocity.y += (clamp * alphay * (current.Posbest.y - current.CurrentPostion.y) + clamp * betay * (best.CurrentPostion.y - current.CurrentPostion.y))* tired;
             current.Velocity.x += (clamp * alphax * (current.Posbest.x - current.CurrentPostion.x) + clamp * betax * (best.CurrentPostion.x - current.CurrentPostion.x))*tired;
-
-
-            if (((int)current.Velocity.x + current.CurrentPostion.x) > maxwidth)
+            if ((current.CurrentPostion.x == best.CurrentPostion.x) && (current.CurrentPostion.y == best.CurrentPostion.y))
             {
-                current.CurrentPostion.x = maxwidth;
+                // dont touch it
             }
             else
             {
-                current.CurrentPostion.x += (int)current.Velocity.x;
-            }
+                if (((int)current.Velocity.x + current.CurrentPostion.x) > maxwidth)
+                {
+                    current.CurrentPostion.x = maxwidth;
+                }
+                else
+                {
+                    current.CurrentPostion.x += (int)current.Velocity.x;
+                }
 
-            if (((int)current.Velocity.x + current.CurrentPostion.x) < 0)
-            {
-                current.CurrentPostion.x = 0;
-            }
+                if (((int)current.Velocity.x + current.CurrentPostion.x) < 0)
+                {
+                    current.CurrentPostion.x = 0;
+                }
 
-            if (((int)current.Velocity.y + current.CurrentPostion.y) > maxheight)
-            {
-                current.CurrentPostion.y = maxheight;
-            }
-            else
-            {
-                current.CurrentPostion.y += (int)current.Velocity.y;
-            }
-            if (((int)current.Velocity.y + current.CurrentPostion.y) < 0)
-            {
-                current.CurrentPostion.y = 0;
-            }
+                if (((int)current.Velocity.y + current.CurrentPostion.y) > maxheight)
+                {
+                    current.CurrentPostion.y = maxheight;
+                }
+                else
+                {
+                    current.CurrentPostion.y += (int)current.Velocity.y;
+                }
+                if (((int)current.Velocity.y + current.CurrentPostion.y) < 0)
+                {
+                    current.CurrentPostion.y = 0;
+                }
 
-            current.CurrentPostion.score = bmp.GetPixel(current.CurrentPostion.x, current.CurrentPostion.y).B;
+                current.CurrentPostion.score = bmp.GetPixel(current.CurrentPostion.x, current.CurrentPostion.y).B;
 
-            // best update
-            //if (current.CurrentPostion.score > current.Posbest.score)
-            //{
-            //    current.Posbest.score = current.CurrentPostion.score;
-            //    current.Posbest.x = current.CurrentPostion.x;
-            //    current.Posbest.y = current.CurrentPostion.y;
-            //}
+                // best update
+                //if (current.CurrentPostion.score > current.Posbest.score)
+                //{
+                //    current.Posbest.score = current.CurrentPostion.score;
+                //    current.Posbest.x = current.CurrentPostion.x;
+                //    current.Posbest.y = current.CurrentPostion.y;
+                //}
+
+            }
 
             return current;
         }
