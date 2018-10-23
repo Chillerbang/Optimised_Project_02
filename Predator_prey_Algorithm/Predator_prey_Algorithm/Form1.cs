@@ -21,7 +21,7 @@ namespace Predator_prey_Algorithm
         private int numPrey = 50;
         private int numPredators = 1;
         private int maxIterations = 100;
-        private int delay = 500;
+        private int delay = 00;
         private bool enablePreditor = true;
 
         private int currentScoreMax = 0;
@@ -233,6 +233,7 @@ namespace Predator_prey_Algorithm
                     {
                         VelcoityFunctionPrey vfp = new VelcoityFunctionPrey((Prey)particlesArray[i], predatorsBeforeMoveList, BestPrey, clamp, alphax, betax, alphay, betay, TempImg,tired,enablePreditor,fearRadius,fearReaction);
                         particlesArray[i] = vfp.newPrey();
+                        //System.Diagnostics.Debug.WriteLine(" new PreyScore " + vfp.newPrey().CurrentPostion.score);
                     }
                     else
                     {
@@ -271,7 +272,7 @@ namespace Predator_prey_Algorithm
                     }
                 }
                 System.Diagnostics.Debug.WriteLine(BestPrey.CurrentPostion.score);
-
+                textBox2.Text = BestPrey.CurrentPostion.score.ToString();
                 // make things tired
 
                 if (tiredcount > stamina)
@@ -295,7 +296,7 @@ namespace Predator_prey_Algorithm
                 {
                     break;
                 }
-
+                txtiteration.Text = countGameIteration.ToString();
                 countGameIteration++;
 
                 if (maxIteration(countGameIteration))

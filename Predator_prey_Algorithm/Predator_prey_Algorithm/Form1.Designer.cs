@@ -30,7 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnStart = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtiteration = new System.Windows.Forms.TextBox();
             this.lblIterations = new System.Windows.Forms.Label();
             this.lblFitness = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -65,13 +65,13 @@
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // textBox1
+            // txtiteration
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(608, 630);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(120, 20);
-            this.textBox1.TabIndex = 2;
+            this.txtiteration.Enabled = false;
+            this.txtiteration.Location = new System.Drawing.Point(608, 630);
+            this.txtiteration.Name = "txtiteration";
+            this.txtiteration.Size = new System.Drawing.Size(120, 20);
+            this.txtiteration.TabIndex = 2;
             // 
             // lblIterations
             // 
@@ -226,7 +226,7 @@
             this.Controls.Add(this.lblFitness);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.lblIterations);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtiteration);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
@@ -244,7 +244,7 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtiteration;
         private System.Windows.Forms.Label lblIterations;
         private System.Windows.Forms.Label lblFitness;
         private System.Windows.Forms.TextBox textBox2;
