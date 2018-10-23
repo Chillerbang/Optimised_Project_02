@@ -18,10 +18,10 @@ namespace Predator_prey_Algorithm
         private int height;
         private int gridSize = 1;
         private int seed = 10;
-        private int numPrey = 50;
+        private int numPrey = 20;
         private int numPredators = 1;
         private int maxIterations = 100;
-        private int delay = 00;
+        private int delay = 500;
         private bool enablePreditor = true;
 
         private int currentScoreMax = 0;
@@ -35,8 +35,8 @@ namespace Predator_prey_Algorithm
         private double tired = 1;
         private double tiredRatePrey = 1;
         private bool displaySwarm = true;
-        private double fearRadius = 10;
-        private double fearReaction = 10;
+        private double fearRadius = 1;
+        private double  fearReaction = 10;
 
         //predator movements
         private double tiredPredator = 0.2;
@@ -234,6 +234,7 @@ namespace Predator_prey_Algorithm
                         VelcoityFunctionPrey vfp = new VelcoityFunctionPrey((Prey)particlesArray[i], predatorsBeforeMoveList, BestPrey, clamp, alphax, betax, alphay, betay, TempImg,tired,enablePreditor,fearRadius,fearReaction);
                         particlesArray[i] = vfp.newPrey();
                         //System.Diagnostics.Debug.WriteLine(" new PreyScore " + vfp.newPrey().CurrentPostion.score);
+                        //System.Diagnostics.Debug.WriteLine( vfp.newPrey().CurrentPostion.score);
                     }
                     else
                     {
