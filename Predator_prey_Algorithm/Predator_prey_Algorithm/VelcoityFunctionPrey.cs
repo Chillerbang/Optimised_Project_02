@@ -128,6 +128,11 @@ namespace Predator_prey_Algorithm
                     current.CurrentPostion.score = bmp.GetPixel(newx, newy).B;
                     //**********************************************************************
                 }
+                else
+                {
+                    current.Velocity.x = 0;
+                    current.Velocity.y = 0;
+                }
             }
             else
             {

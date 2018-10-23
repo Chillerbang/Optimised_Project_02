@@ -18,10 +18,10 @@ namespace Predator_prey_Algorithm
         private int height;
         private int gridSize = 1;
         private int seed = 10;
-        private int numPrey = 20;
+        private int numPrey = 50;
         private int numPredators = 1;
         private int maxIterations = 100;
-        private int delay = 10;
+        private int delay = 500;
         private bool enablePreditor = true;
 
         private int currentScoreMax = 0;
@@ -34,8 +34,8 @@ namespace Predator_prey_Algorithm
         private int stamina = 100;
         private double tired = 1;
         private double tiredRatePrey = 1;
-        private bool displaySwarm = false;
-        private double fearRadius = 100;
+        private bool displaySwarm = true;
+        private double fearRadius = 10;
         private double fearReaction = 10;
 
         //predator movements
